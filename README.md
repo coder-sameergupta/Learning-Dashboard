@@ -136,6 +136,14 @@ Open [http://localhost:3000](http://localhost:3000) — redirects to `/dashboard
 
 ---
 
+## Challenges Faced
+
+- **Server vs. Client Component Split**: Striking the right balance between Server and Client Components in Next.js 15 App Router required careful planning. Data fetching from Supabase needed to be handled securely on the server, while orchestrating Framer Motion's staggered animations required client-side interactivity (`"use client"`). This was solved by doing the heavy lifting in an asynchronous Server Component (`CourseData`) and passing the result as plain props to a dedicated Client Component (`BentoGrid`).
+- **Animation and Hydration**: Ensuring that initial states for Framer Motion elements correctly matched between server rendering and client hydration to prevent React hydration mismatches. We focused exclusively on CSS `transform` and `opacity` to avoid layout shifts.
+- **Supabase SSR Implementation**: Integrating `@supabase/ssr` to securely manage cookies within the newer App Router paradigms without unintentionally exposing client-side secrets.
+
+---
+
 ## Known Tradeoffs
 
 - **Static user profile** — `USER` is hardcoded in `page.tsx`. In a real app this comes from `supabase.auth.getUser()`.
